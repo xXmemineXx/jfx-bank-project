@@ -1,15 +1,23 @@
-package com.bank;
+package com.bank.controller;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable; 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
-public class MainController {
+public class MainController implements Initializable{
 
     @FXML
     private StackPane contentArea;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        showHomeView();
+    }
 
     @FXML
     private void showSearchResults() {

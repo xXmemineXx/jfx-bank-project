@@ -1,4 +1,4 @@
-package com.bank;
+package com.bank.controller;
 
 public class ActionsController {
 
