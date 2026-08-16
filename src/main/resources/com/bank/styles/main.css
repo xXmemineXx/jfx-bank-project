@@ -1,0 +1,47 @@
+.Bg {
+	-fx-background-color: ghostwhite;
+}
+
+.button{
+	-fx-background-color: #A19E9D;
+	-fx-background-radius: 30px;
+}
+
+.button:hover{
+	-fx-background-color: #DCE8E7;
+	-fx-translate-y: 2px;
+}
+
+.NavBar{
+	-fx-background-color: #E2E2DA;
+	-fx-background-radius: 50px;
+}
+
+.NavBar .button {
+	-fx-background-color: #444143;
+	-fx-background-radius: 50px;
+}
+
+.NavBar .button:hover {
+	-fx-translate-y: 3px;
+	-fx-scale: 2px;
+}
+
+.SearchBar{
+	-fx-background-radius: 10px;
+}
+
+.SearchBar:focused{
+	-fx-background-color: #DCE8E7;
+}
+
+.Result {
+	-fx-background-color: #E2E2DA;
+	-fx-background-radius: 10px;
+}
+
+#account{
+	-fx-background-radius: 50px;
+	-fx-height: 50px;
+	-fx-witdh: 50px;
+}

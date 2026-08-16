@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="Bg" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="380.0" prefWidth="377.0" styleClass="Result">
+         <content>
+            <AnchorPane prefHeight="397.0" prefWidth="284.0" styleClass="Result" />
+         </content>
+         <HBox.margin>
+            <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
+         </HBox.margin>
+      </ScrollPane>
+   </children>
+</HBox>

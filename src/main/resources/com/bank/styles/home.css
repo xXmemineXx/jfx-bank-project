@@ -1,0 +1,19 @@
+.Bg {
+	-fx-background-color: #FAFCFF;
+}
+
+.Shortcut {
+	-fx-background-color: #A19E9D;
+	-fx-background-radius: 18px;
+}
+
+.Shortcut:hover {
+	-fx-border-color: #444143;
+	-fx-border-width: 3px;
+	-fx-border-radius: 15px;
+}
+
+.section {
+	-fx-background-color: #E2E2DA;
+	-fx-background-radius: 15px;
+}

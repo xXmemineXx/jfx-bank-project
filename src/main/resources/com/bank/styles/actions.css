@@ -1,0 +1,37 @@
+.Bg {
+	-fx-background-color: ghostwhite;
+}
+
+.button{
+	-fx-background-color: #A19E9D;
+	-fx-background-radius: 30px;
+}
+
+.button:hover{
+	-fx-background-color: #DCE8E7;
+	-fx-translate-y: 2px;
+}
+
+.searchBar{
+	-fx-background-radius: 10px;
+}
+
+.searchBar:focused{
+	-fx-background-color: #DCE8E7;
+}
+
+.menu {
+	-fx-background-color: #E2E2DA;
+	-fx-background-radius: 15px;
+}
+
+.menu:hover {
+	-fx-border-color: #444143;
+	-fx-border-width: 3px;
+	-fx-border-radius: 18px;
+}
+
+.section {
+	-fx-background-color: #FAFCFF;
+	-fx-background-radius: 20px;
+}

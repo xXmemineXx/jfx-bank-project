@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<HBox prefHeight="400.0" prefWidth="600.0" styleClass="Bg" stylesheets="@../styles/home.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="365.0" prefWidth="193.0" styleClass="section" HBox.hgrow="ALWAYS">
+         <children>
+            <Label text="latest actions">
+               <VBox.margin>
+                  <Insets bottom="15.0" left="10.0" right="10.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="178.0">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                     </padding>
+                  </AnchorPane>
+              </content>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" />
+               </VBox.margin>
+            </ScrollPane>
+         </children>
+         <HBox.margin>
+            <Insets bottom="15.0" left="15.0" top="15.0" />
+         </HBox.margin>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="390.0" prefWidth="282.0" HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
+         </padding>
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="271.0" prefWidth="225.0" styleClass="section">
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </VBox.margin>
+               <children>
+                  <Label text="Welcome" />
+                  <Label text="username" VBox.vgrow="ALWAYS" />
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="SOMETIMES">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <children>
+                        <Label text="app shortcuts" />
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets bottom="8.0" top="8.0" />
+                           </VBox.margin>
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="90.0" prefWidth="123.0" styleClass="Shortcut" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="clients" />
+                                    <ImageView VBox.vgrow="ALWAYS">
+                                       <image>
+                                          <Image url="@../icons/icons8-client-30.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="90.0" prefWidth="123.0" styleClass="Shortcut" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="operations" />
+                                    <ImageView fitHeight="31.0" fitWidth="40.0">
+                                       <image>
+                                          <Image url="@../icons/icons8-bank-cards-50.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox alignment="CENTER" layoutX="99.0" layoutY="10.0" prefHeight="90.0" prefWidth="123.0" styleClass="Shortcut" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="status" />
+                                    <ImageView fitHeight="29.0" fitWidth="41.0">
+                                       <image>
+                                          <Image url="@../icons/icons8-bank-64.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets top="3.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </VBox>
+      <VBox alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="395.0" prefWidth="131.0" HBox.hgrow="ALWAYS">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="90.0" prefWidth="123.0" styleClass="section">
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+               <children>
+                  <Label text="clients" />
+                  <ImageView fitHeight="39.0" fitWidth="42.0">
+                     <image>
+                        <Image url="@../icons/icons8-client-30.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="number" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="90.0" prefWidth="100.0" styleClass="section">
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <children>
+                  <Label text="total income" />
+                  <ImageView fitHeight="45.0" fitWidth="65.0">
+                     <image>
+                        <Image url="@../icons/icons8-income-50%20(1).png" />
+                     </image>
+                  </ImageView>
+                  <Label text="amont" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</HBox>

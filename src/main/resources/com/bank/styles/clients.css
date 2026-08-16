@@ -1,0 +1,64 @@
+.bg{
+	-fx-background-color: ghostwhite;
+}
+
+.button{
+	-fx-background-color: #A19E9D;
+	-fx-background-radius: 30px;
+}
+
+.action{
+	-fx-background-color: #E2E2DA;
+	-fx-background-radius: 12px;
+}
+
+.action:hover{
+	-fx-border-color: #444143;
+	-fx-border-width: 3px;
+	-fx-border-radius: 10px;
+}
+
+.button:hover{
+	-fx-background-color: #DCE8E7;
+	-fx-translate-y: 2px;
+}
+
+.SearchBar{
+	-fx-background-radius: 10px;
+}
+
+.SearchBar:focused{
+	-fx-background-color: #DCE8E7;
+}
+
+.section {
+	-fx-background-color: #E2E2DA;
+	-fx-background-radius: 12px;
+}
+
+.status {
+	-fx-background-color: whitesmoke;
+	-fx-background-radius: 10px;
+}
+
+.menu {
+	-fx-background-color: ghostwhite;
+	-fx-background-radius: 10px;
+}
+
+.Shortcut {
+	-fx-background-color: #A19E9D;
+	-fx-background-radius: 18px;
+}
+
+.infos {
+	-fx-background-color: #FAFCFF;
+	-fx-background-radius: 12px;
+}
+
+.Shortcut:hover {
+	-fx-scale: 1.1;
+	-fx-border-color: #444143;
+	-fx-border-width: 3px;
+	-fx-border-radius: 15px;
+}
