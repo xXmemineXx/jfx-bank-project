@@ -95,7 +95,7 @@ BEGIN
     -- CASE 1: New Return Entry (Subtract cash from client's wallet)
     IF (TG_OP = 'INSERT') THEN
         UPDATE clients 
-        SET solde = solde - NEW.returned_amount 
+        SET balance = balance - NEW.returned_amount 
         WHERE account_id = loan_debtor_id;
         RETURN NEW;
 
@@ -103,14 +103,14 @@ BEGIN
     ELSIF (TG_OP = 'UPDATE') THEN
         amount_difference := NEW.returned_amount - OLD.returned_amount;
         UPDATE clients 
-        SET solde = solde - amount_difference 
+        SET balance = balance - amount_difference 
         WHERE account_id = loan_debtor_id;
         RETURN NEW;
 
     -- CASE 3: Deleted Return Entry (Refund the money back into their wallet)
     ELSIF (TG_OP = 'DELETE') THEN
         UPDATE clients 
-        SET solde = solde + OLD.returned_amount 
+        SET balance = balance + OLD.returned_amount 
         WHERE account_id = loan_debtor_id;
         RETURN OLD;
     END IF;
@@ -125,7 +125,7 @@ BEGIN
     -- CASE 1: New Loan (Add money to client's wallet)
     IF (TG_OP = 'INSERT') THEN
         UPDATE clients 
-        SET solde = solde + NEW.amount 
+        SET balance = balance + NEW.amount 
         WHERE account_id = NEW.debtor_id;
         RETURN NEW;
 
@@ -138,14 +138,14 @@ BEGIN
 
         amount_difference := NEW.amount - OLD.amount;
         UPDATE clients 
-        SET solde = solde + amount_difference 
+        SET balance = balance + amount_difference 
         WHERE account_id = NEW.debtor_id;
         RETURN NEW;
 
     -- CASE 3: Deleted Loan (Deduct the borrowed cash out of the wallet)
     ELSIF (TG_OP = 'DELETE') THEN
         UPDATE clients 
-        SET solde = solde - OLD.amount 
+        SET balance = balance - OLD.amount 
         WHERE account_id = OLD.debtor_id;
         RETURN OLD;
     END IF;
@@ -158,10 +158,12 @@ DECLARE
     sender_balance INTEGER;
     amount_difference INTEGER;
 BEGIN
+    ------------------------------------------------------------------
     -- CASE 1: NEW TRANSFER (INSERT)
+    ------------------------------------------------------------------
     IF (TG_OP = 'INSERT') THEN
         -- 1. Check sender's current balance
-        SELECT solde INTO sender_balance FROM clients WHERE account_id = NEW.sender_id;
+        SELECT balance INTO sender_balance FROM clients WHERE account_id = NEW.sender_id;
         
         -- 2. Validate funds
         IF sender_balance < NEW.amount THEN
@@ -169,12 +171,14 @@ BEGIN
         END IF;
 
         -- 3. Move the money
-        UPDATE clients SET solde = solde - NEW.amount WHERE account_id = NEW.sender_id;
-        UPDATE clients SET solde = solde + NEW.amount WHERE account_id = NEW.receiver_id;
+        UPDATE clients SET balance = balance - NEW.amount WHERE account_id = NEW.sender_id;
+        UPDATE clients SET balance = balance + NEW.amount WHERE account_id = NEW.receiver_id;
         
         RETURN NEW;
 
+    ------------------------------------------------------------------
     -- CASE 2: EDITED TRANSFER (UPDATE)
+    ------------------------------------------------------------------
     ELSIF (TG_OP = 'UPDATE') THEN
         -- Prevent changing the accounts involved in a transfer edit to avoid major balance chaos
         IF (OLD.sender_id <> NEW.sender_id OR OLD.receiver_id <> NEW.receiver_id) THEN
@@ -187,14 +191,14 @@ BEGIN
         amount_difference := NEW.amount - OLD.amount;
 
         -- Check if sender has enough money for the *extra* amount needed (if the transfer grew)
-        SELECT solde INTO sender_balance FROM clients WHERE account_id = NEW.sender_id;
+        SELECT balance INTO sender_balance FROM clients WHERE account_id = NEW.sender_id;
         IF amount_difference > sender_balance THEN
             RAISE EXCEPTION 'Transfer edit failed: Insufficient funds for the updated amount. Sender needs % more but only has %', amount_difference, sender_balance;
         END IF;
 
         -- Adjust both client balances according to the difference
-        UPDATE clients SET solde = solde - amount_difference WHERE account_id = NEW.sender_id;
-        UPDATE clients SET solde = solde + amount_difference WHERE account_id = NEW.receiver_id;
+        UPDATE clients SET balance = balance - amount_difference WHERE account_id = NEW.sender_id;
+        UPDATE clients SET balance = balance + amount_difference WHERE account_id = NEW.receiver_id;
 
         RETURN NEW;
     END IF;
@@ -287,9 +291,9 @@ Create table clients (
   last_name varchar(20),
   phone varchar(13),
   email varchar(60),
-  solde INTEGER NOT NULL DEFAULT 0
+  balance INTEGER NOT NULL DEFAULT 0
 
-  constraint chk_positive_solde check (solde > 0)
+  constraint chk_positive_solde check (balance > 0)
 );
 
 create table transfer(
