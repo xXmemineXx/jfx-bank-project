@@ -2,7 +2,7 @@ package com.bank.models;
 
 import java.time.LocalDateTime;
 
-class Transfer
+public class Transfer
 {
 	private int transfer_id;
 	private int amount;

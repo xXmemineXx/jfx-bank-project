@@ -2,7 +2,7 @@ package com.bank.models;
 
 import java.time.LocalDateTime;
 
-class Returns
+public class Returns
 {
 	private boolean fully_returned;
 	private int returned_amount;

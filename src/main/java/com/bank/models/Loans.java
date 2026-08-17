@@ -2,7 +2,7 @@ package com.bank.models;
 
 import java.time.LocalDateTime;
 
-class Loans
+public class Loans
 {
 	private int amount;
 	private String loan_id;
