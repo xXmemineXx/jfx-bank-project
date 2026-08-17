@@ -8,7 +8,7 @@ import java.util.List;
 
 public class LoansDAO
 {
-	//get all users
+	//get all loans
     public List<Loans> getAllLoans() 
     {
         List<Loans> LoansList = new ArrayList<>();

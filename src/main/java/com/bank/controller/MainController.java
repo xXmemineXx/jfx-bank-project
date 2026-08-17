@@ -9,7 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
-public class MainController implements Initializable{
+public class MainController implements Initializable
+{
 
     @FXML
     private StackPane contentArea;
@@ -51,4 +52,5 @@ public class MainController implements Initializable{
             System.out.println("Error loading sub-view path: " + fxmlPath);
         }
     }
+
 }

@@ -1,18 +1,18 @@
 package com.bank.dao;
 
 import com.bank.database.DbConnection;
-import com.bank.models.Transfer;
+import com.bank.models.History;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransferDAO
+public class HistoryDAO
 {
-	//get all returns
-    public List<Transfer> getAllTransfers() 
+	//get history
+    public List<History> gethistory() 
     {
-        List<Transfer> transfersList = new ArrayList<>();
-        String sql = "SELECT * FROM transfer";
+        List<History> transfersList = new ArrayList<>();
+        String sql = "SELECT * FROM history";
 
         // Open connection and execute query
         try (
@@ -22,14 +22,14 @@ public class TransferDAO
 
         // insert transfer object to the returned list
             while (rs.next()) {
-                Transfer transfer = new Transfer(
-                    rs.getInt("transfer_id"),
-                    rs.getInt("amount"),
-                    rs.getString("sender_id"),
-                    rs.getString("receiver_id"),
-                    rs.getTimestamp("transfer_date").toLocalDateTime()
+                History history = new History(
+                    rs.getString("from_"),
+                    rs.getString("operation_"),
+                    rs.getString("subject_"),
+                    rs.getString("target_"),
+                    rs.getTimestamp("date_").toLocalDateTime()
                 );
-                transfersList.add(transfer);
+                transfersList.add(history);
             }
         } catch (SQLException e) {
             e.printStackTrace();

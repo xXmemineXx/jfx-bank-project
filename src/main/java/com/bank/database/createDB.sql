@@ -158,9 +158,7 @@ DECLARE
     sender_balance INTEGER;
     amount_difference INTEGER;
 BEGIN
-    ------------------------------------------------------------------
     -- CASE 1: NEW TRANSFER (INSERT)
-    ------------------------------------------------------------------
     IF (TG_OP = 'INSERT') THEN
         -- 1. Check sender's current balance
         SELECT balance INTO sender_balance FROM clients WHERE account_id = NEW.sender_id;
@@ -176,9 +174,7 @@ BEGIN
         
         RETURN NEW;
 
-    ------------------------------------------------------------------
     -- CASE 2: EDITED TRANSFER (UPDATE)
-    ------------------------------------------------------------------
     ELSIF (TG_OP = 'UPDATE') THEN
         -- Prevent changing the accounts involved in a transfer edit to avoid major balance chaos
         IF (OLD.sender_id <> NEW.sender_id OR OLD.receiver_id <> NEW.receiver_id) THEN

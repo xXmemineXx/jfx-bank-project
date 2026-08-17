@@ -1,0 +1,26 @@
+.Bg {
+	-fx-background-color: #DCE8E7;
+	-fx-background-radius: 10px;
+}
+
+.bg:hover{
+	-fx-border-width: 2px;
+	-fx-border-color: #444143;
+	-fx-border-radius: 10px;
+}
+
+.info{
+	-fx-background-color: #FAFCFF;
+	-fx-background-radius: 10px;
+}
+
+.menu {
+	-fx-background-color: #A19E9D;
+	-fx-background-radius: 12px;
+}
+
+.menu-option:hover {
+	-fx-border-width: 2px;
+	-fx-border-color: #444143;
+	-fx-border-radius: 10px;
+}
