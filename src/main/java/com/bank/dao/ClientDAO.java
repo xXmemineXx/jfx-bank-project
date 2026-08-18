@@ -15,7 +15,7 @@ public class ClientDAO
     public List<Client> getAllClients() 
     {
         List<Client> clientList = new ArrayList<>();
-        String sql = "SELECT * FROM clients";
+        String sql = "SELECT * FROM clients ORDER BY account_id ASC";
 
         // Open connection and execute query
         try (
