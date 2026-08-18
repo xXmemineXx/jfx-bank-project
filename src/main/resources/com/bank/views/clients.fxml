@@ -135,7 +135,7 @@
       </VBox>
       <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
          <children>
-            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="90.0" prefWidth="100.0" styleClass="action">
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" onMouseClicked="#addClient" prefHeight="90.0" prefWidth="100.0" styleClass="action">
                <children>
                   <Label text="insert new" />
                   <ImageView VBox.vgrow="ALWAYS">
@@ -148,6 +148,12 @@
             <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="90.0" prefWidth="100.0" styleClass="section">
                <children>
                   <Label text="total client" />
+                  <ImageView fitHeight="47.0" fitWidth="49.0">
+                     <image>
+                        <Image url="@../icons/icons8-group-64.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="totalClients" text="Label" />
                </children>
             </VBox>
          </children>

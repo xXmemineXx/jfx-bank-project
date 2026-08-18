@@ -25,9 +25,9 @@
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" styleClass="Bg" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="Bg" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox alignment="CENTER" prefHeight="79.0" prefWidth="0.0" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER" prefHeight="79.0" prefWidth="186.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label text="debtor">
                            <VBox.margin>
@@ -39,10 +39,14 @@
                            </VBox.margin></Label>
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="79.0" prefWidth="219.0" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER" prefHeight="79.0" prefWidth="151.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label text="amount" />
                         <Label fx:id="amountLabel" text="Label" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="79.0" prefWidth="122.0" HBox.hgrow="ALWAYS">
+                     <children>
                         <Label text="bank income" />
                         <Label fx:id="incomeLabel" text="Label" />
                      </children>

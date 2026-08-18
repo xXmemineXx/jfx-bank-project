@@ -8,25 +8,30 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="117.0" prefWidth="600.0" styleClass="bg" stylesheets="@../styles/cards.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="117.0" prefWidth="600.0" styleClass="bg" stylesheets="@../styles/cards.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bank.controller.ReturnController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="Bg" HBox.hgrow="ALWAYS">
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="menu" HBox.hgrow="ALWAYS">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label text="date">
+                  <Label fx:id="returnIdLabel" text="Label">
                      <HBox.margin>
                         <Insets left="20.0" right="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Label text="loanid">
+                  <Label fx:id="loanIdLabel" text="loanid">
+                     <HBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="returnDateLabel" text="date">
                      <HBox.margin>
                         <Insets left="20.0" right="20.0" />
                      </HBox.margin>
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="153.0" prefWidth="590.0" spacing="5.0" styleClass="menu">
+            <HBox alignment="CENTER" prefHeight="153.0" prefWidth="590.0" spacing="5.0" styleClass="Bg">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
@@ -38,7 +43,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Label" />
+                        <Label fx:id="debtorNameLabel" text="Label" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="70.0" prefWidth="114.0" HBox.hgrow="ALWAYS">
@@ -48,8 +53,8 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Label" />
-                        <Label text="status">
+                        <Label fx:id="loanAmountLabel" text="Label" />
+                        <Label fx:id="statusLabel" text="status">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="25.0" top="5.0" />
                            </VBox.margin>
@@ -63,7 +68,17 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Label" />
+                        <Label fx:id="returnedAmountLabel" text="Label" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="unpayed">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="unpayedAmountLabel" text="Label" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="74.0" prefWidth="42.0" HBox.hgrow="ALWAYS">

@@ -17,8 +17,8 @@ public class TransferController implements ActionCard {
         // Cast the generic object to your specific model type
         Transfer transfer = (Transfer) dataRecord; 
         
-        senderName.setText(transfer.get_sender_name());
-        receiverName.setText(transfer.get_receiver_name());
+        senderName.setText("sender : " + transfer.get_sender_name());
+        receiverName.setText("receiver : " + transfer.get_receiver_name());
         transferDateLabel.setText(transfer.get_date().toString());
         transferedAmountLabel.setText(String.valueOf(transfer.get_amount()));
     }

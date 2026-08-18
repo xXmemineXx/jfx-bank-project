@@ -19,7 +19,7 @@ public class Transfer
 		this.sender_id = sender;
 		this.receiver_id = receiver;
 		this.transfer_date = transfer;
-		this.sender_name = receiverName;
+		this.sender_name = senderName;
 		this.receiver_name = receiverName;
 	}
 
@@ -30,7 +30,7 @@ public class Transfer
 	public int get_id() { return this.transfer_id; }
 	public int get_amount() { return this.amount; }
 	public String get_sender() { return this.sender_id; }
-	public String get_sender_name() { return this.receiver_name; }
+	public String get_sender_name() { return this.sender_name; }
 	public String get_receiver_name() { return this.receiver_name; }
 	public String get_receiver() {return this.receiver_id; }
 	public LocalDateTime get_date() { return this.transfer_date; }
