@@ -40,8 +40,8 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <TextField promptText="search client" styleClass="SearchBar" />
-                  <Button mnemonicParsing="false" text="reset" />
+                  <TextField fx:id="searchField" promptText="search client" styleClass="SearchBar" />
+                  <Button mnemonicParsing="false" onAction="#handleResetSearch" text="reset" />
                </children>
             </HBox>
             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="302.0" prefWidth="213.0" VBox.vgrow="ALWAYS">

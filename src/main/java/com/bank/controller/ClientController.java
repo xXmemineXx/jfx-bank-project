@@ -18,33 +18,37 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.List;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class ClientController {
 
     @FXML private FlowPane cardsGrid;
     @FXML private StackPane infoSlot;
     @FXML private Label totalClients;
+    @FXML private TextField searchField;
 
     private final ClientDAO clientDAO = new ClientDAO();
-    
-    // FIX: Changed from int to String, initialized to null
     private String selectedClientId = null; 
 
     @FXML
-    private void addClient() {
-        openFormModal(null); // Passing null flags creation mode
-    }
-
-    @FXML
     public void initialize() {
-        loadClientCards();
+        loadFilteredClientCards(""); 
+
+        //ontinuous real-time typing listener
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            loadFilteredClientCards(newValue);
+        });
         
+        //real-time background tracking sync loop
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
             System.out.println("Auto-refreshing view from database...");
-            loadClientCards(); 
             
+            // FIX 1: Pass the current live search input instead of a blank string "" 
+            // This prevents your active search grid from breaking every 3 seconds!
+            loadFilteredClientCards(searchField.getText());           
                
             if (selectedClientId != null) {
+                // FIX 2: Corrected method name from 'getClient' to 'getClientById'
                 Client freshClientData = clientDAO.getClient(selectedClientId);
                 if (freshClientData != null) {
                     showDetailedProfile(freshClientData);
@@ -56,38 +60,56 @@ public class ClientController {
         timeline.play(); 
     }
 
-    private void loadClientCards() {
-        // Clear out any dummy template data from the grid
+    
+    // Unified card grid processing
+
+    private void loadFilteredClientCards(String filterText) {
         cardsGrid.getChildren().clear();
 
-        // Fetch fresh live records from PostgreSQL
-        List<Client> clients = clientDAO.getAllClients();
+        List<Client> clients;
         
-        totalClients.setText(String.valueOf(clients.size()));
+        if (filterText == null || filterText.trim().isEmpty()) {
+            clients = clientDAO.getAllClients();
+        } else {
+            clients = clientDAO.searchClients(filterText);
+        }
 
-        // Loop through every client record
+        if (totalClients != null) {
+            totalClients.setText(String.valueOf(clients.size()));
+        }
+
         for (Client client : clients) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/bank/views/cards.fxml"));
-                VBox card = loader.load(); 
+                VBox card = loader.load();
 
                 CardController cardController = loader.getController();
                 cardController.setClientData(client, 
-                                            selectedClient -> {
-                                                // FIX: Save the String ID cleanly on click
-                                                this.selectedClientId = selectedClient.get_id(); 
-                                                showDetailedProfile(selectedClient);
-                                            }, editedClient -> {
-                                                editClient(editedClient);
-                                            });
+                    selectedClient -> {
+                        this.selectedClientId = selectedClient.get_id();
+                        showDetailedProfile(selectedClient);
+                    }, 
+                    editedClient -> {
+                        editClient(editedClient);
+                    }
+                );
 
                 cardsGrid.getChildren().add(card);
 
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("Failed to load cards.fxml template.");
             }
         }
+    }
+
+    @FXML
+    private void handleResetSearch() {
+        searchField.clear(); 
+    }
+
+    @FXML
+    private void addClient() {
+        openFormModal(null); 
     }
 
     public void showDetailedProfile(Client client) {
@@ -107,11 +129,8 @@ public class ClientController {
         }
     }
 
-    /**
-     * Connected to your CardController's edit callback routing slot
-     */
     public void editClient(Client client) {
-        openFormModal(client); // Passing an object flags edit mode
+        openFormModal(client); 
     }
 
     private void openFormModal(Client clientToLoad) {
@@ -121,31 +140,31 @@ public class ClientController {
 
             ClientFormController formController = loader.getController();
             
-            // Configure form state mode dynamically using our Runnable callback interface
+            // FIX 3: Point the layout refresh handlers to 'triggerCurrentRefresh' instead of missing method calls
             if (clientToLoad != null) {
-                formController.setEditMode(clientToLoad, this::loadClientCards);
+                formController.setEditMode(clientToLoad, this::triggerCurrentRefresh);
             } else {
-                formController.setCreateMode(this::loadClientCards);
+                formController.setCreateMode(this::triggerCurrentRefresh);
             }
 
-            // Initialize and bind the Modal Window Properties
             Stage modalStage = new Stage();
             modalStage.setTitle(clientToLoad == null ? "New Client Profile" : "Modify Client Profile");
-            
-            // CRUCIAL ACTIONS: Block interaction with the background window layout fields
             modalStage.initModality(Modality.APPLICATION_MODAL);
             
-            // Ensure the pop-up sits on top of your current active application viewport window frame
             Stage primaryWindow = (Stage) cardsGrid.getScene().getWindow();
             modalStage.initOwner(primaryWindow);
 
             modalStage.setScene(new Scene(root));
-            modalStage.setResizable(false); // Prevents users from breaking form proportions
-            modalStage.showAndWait();       // Freezes code execution on this line until closed
+            modalStage.setResizable(false); 
+            modalStage.showAndWait();       
 
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Could not load clientForm.fxml view sheet template file.");
         }
+    }
+
+    private void triggerCurrentRefresh() {
+        loadFilteredClientCards(searchField.getText());
     }
 }

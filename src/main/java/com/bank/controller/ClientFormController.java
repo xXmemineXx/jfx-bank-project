@@ -22,9 +22,7 @@ public class ClientFormController {
     private boolean isEditMode = false;
     private Runnable onSaveCallback; // Triggers a refresh in the parent view
 
-    /**
-     * Configuration for EDIT MODE
-     */
+    //EDIT MODE
     public void setEditMode(Client client, Runnable onSaveCallback) {
         this.isEditMode = true;
         this.existingClient = client;
@@ -45,54 +43,52 @@ public class ClientFormController {
         balanceField.setDisable(true);
     }
 
-    /**
-     * Configuration for CREATE MODE
-     */
+    
+    // CREATE MODE
     public void setCreateMode(Runnable onSaveCallback) {
         this.isEditMode = false;
         this.onSaveCallback = onSaveCallback;
         formTitle.setText("Register New Client");
-        
-        // Ensure balance field defaults to a clean string state for inputs
         balanceField.setText("0");
     }
 
     @FXML
-    private void handleSave() {
-        // Read input strings safely out of fields
-        String fName = firstNameField.getText();
-        String lName = lastNameField.getText();
-        String mail = emailField.getText();
-        String phone = phoneField.getText();
+private void handleSave() {
+    String fName = firstNameField.getText();
+    String lName = lastNameField.getText();
+    String mail = emailField.getText();
+    String phone = phoneField.getText();
 
-        if (isEditMode) {
-            // Apply modifications using your exact setter conventions
-            existingClient.set_first_name(fName);
-            existingClient.set_last_name(lName);
-            existingClient.set_mail(mail);
-            existingClient.set_phone(phone);
-            
-            // TODO: Execute your DAO update method here
-            // clientDAO.updateClient(existingClient);
-            System.out.println("Updating database entry for client ID: " + existingClient.get_id());
-        } else {
-            String accId = accountField.getText();
-            int initialBalance = Integer.parseInt(balanceField.getText());
+    boolean success = false;
 
-            // Build a completely new record instance based on your explicit constructor
-            Client newClient = new Client(accId, lName, fName, mail, phone, initialBalance);
-            
-            // TODO: Execute your DAO insert method here
-            // clientDAO.insertClient(newClient);
-            System.out.println("Saving new client to database with account number: " + newClient.get_id());
-        }
+    if (isEditMode) {
+        existingClient.set_first_name(fName);
+        existingClient.set_last_name(lName);
+        existingClient.set_mail(mail);
+        existingClient.set_phone(phone);
+        
+        success = clientDAO.updateClient(existingClient);
+    } else {
+        String accId = accountField.getText();
+        int initialBalance = Integer.parseInt(balanceField.getText());
 
-        // Trigger the visual layout refresh callback routine
-        if (onSaveCallback != null) {
-            onSaveCallback.run();
-        }
-        closeWindow();
+        Client newClient = new Client(accId, lName, fName, mail, phone, initialBalance);
+        success = clientDAO.insertClient(newClient); // Capture the return boolean status value!
     }
+
+    if (success) {
+        if (onSaveCallback != null) onSaveCallback.run();
+        closeWindow();
+    } else {
+        // ERROR HANDLER ALERT DISPLAY POPUP
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+        alert.setTitle("ERROR");
+        alert.setHeaderText("Insertion Failed");
+        alert.setContentText("values rejected");
+        alert.showAndWait();
+    }
+}
+
 
     @FXML
     private void handleCancel() {

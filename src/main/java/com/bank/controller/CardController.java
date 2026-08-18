@@ -24,12 +24,10 @@ public class CardController {
 
     public void setClientData(Client client,
                             Consumer<Client> viewCallback,
-                            Consumer<Client> editCallback/*,
-                            Consumer<Client> deleteCallback*/) {
+                            Consumer<Client> editCallback) {
         this.client = client;
-        this.onCardView = viewCallback;/*
+        this.onCardView = viewCallback;
         this.onCardEdit = editCallback;
-        this.onCardDelete = deleteCallback;*/
 
         type.setText("account n: " + client.get_id());
         description.setText(client.get_first_name() + " " + client.get_last_name());
