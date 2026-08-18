@@ -19,6 +19,6 @@ public class ClientInfoController {
         lNameLabel.setText(client.get_last_name());
         emailLabel.setText(client.get_mail());
         phoneLabel.setText(client.get_phone());
-        balanceLabel.setText("Ar" + String.format("%.2f", client.get_balance()));
+        balanceLabel.setText(String.valueOf(client.get_balance()));
     }
 }

@@ -23,40 +23,37 @@ public class CardController {
 
 
     public void setClientData(Client client,
-                            Consumer<Client> viewCallback,
+                            Consumer<Client> viewCallback/*,
                             Consumer<Client> editCallback,
-                            Consumer<Client> deleteCallback) {
+                            Consumer<Client> deleteCallback*/) {
         this.client = client;
-        this.onCardView = viewCallback;
+        this.onCardView = viewCallback;/*
         this.onCardEdit = editCallback;
-        this.onCardDelete = deleteCallback;
+        this.onCardDelete = deleteCallback;*/
 
         type.setText("account n: " + client.get_id());
         description.setText(client.get_first_name() + " " + client.get_last_name());
     }
 
     @FXML
-    public void deleteCardClick(javafx.event.ActionEvent event)
+    public void deleteCard()
     {
-        event.consume();
         if (onCardDelete != null) {
             onCardDelete.accept(client);
         }
     }
 
     @FXML
-    public void viewCardClick(javafx.event.ActionEvent event)
+    public void editCard()
     {
-        event.consume();
         if (onCardEdit != null) {
             onCardEdit.accept(client);
         }
     }
 
     @FXML
-    public void editCardClick(javafx.event.ActionEvent event)
+    public void viewCard()
     {
-        event.consume();
         if (onCardView != null) {
             onCardView.accept(client);
         }
