@@ -14,7 +14,7 @@ import java.util.List;
 public class ClientController {
 
     @FXML
-    private FlowPane cardsGrid; // Injected from Scene Builder
+    private FlowPane cardsGrid;
 
     @FXML
     private StackPane infoSlot;
@@ -44,9 +44,12 @@ public class ClientController {
 
                 // 4. Pass the client data straight to the card's individual controller
                 CardController cardController = loader.getController();
-                cardController.setClientData(client, selectedClient -> {
-                                            showDetailedProfile(selectedClient);
-                                        });
+                cardController.setClientData(client, 
+                                            selectedClient -> {
+                                                showDetailedProfile(selectedClient);
+                                            }, editedClient -> {
+                                                editClient(editedClient);
+                                            });
 
                 // 5. Inject this fully loaded card layout directly into your responsive grid
                 cardsGrid.getChildren().add(card);
@@ -58,23 +61,29 @@ public class ClientController {
         }
 
     }
-        public void showDetailedProfile(Client client) 
-        {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/bank/views/clientInfo.fxml"));
-                Parent infoView = loader.load();
 
-                // 1. Get the controller of the new fxml view
-                ClientInfoController controller = loader.getController();
-                
-                controller.initData(client);
+    public void showDetailedProfile(Client client) 
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/bank/views/clientInfo.fxml"));
+            Parent infoView = loader.load();
 
-                infoSlot.getChildren().clear();
-                infoSlot.getChildren().add(infoView);
+            // 1. Get the controller of the new fxml view
+            ClientInfoController controller = loader.getController();
+            
+            controller.initData(client);
 
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Could not load clientInfo.fxml file.");
-            }
+            infoSlot.getChildren().clear();
+            infoSlot.getChildren().add(infoView);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Could not load clientInfo.fxml file.");
         }
+    }
+
+    public void editClient(Client client)
+    {
+
+    }
 }

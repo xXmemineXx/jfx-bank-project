@@ -23,8 +23,8 @@ public class CardController {
 
 
     public void setClientData(Client client,
-                            Consumer<Client> viewCallback/*,
-                            Consumer<Client> editCallback,
+                            Consumer<Client> viewCallback,
+                            Consumer<Client> editCallback/*,
                             Consumer<Client> deleteCallback*/) {
         this.client = client;
         this.onCardView = viewCallback;/*
