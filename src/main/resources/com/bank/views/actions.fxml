@@ -93,20 +93,6 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
                         <StackPane prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <VBox alignment="CENTER" maxWidth="-Infinity" prefHeight="294.0" prefWidth="0.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="71.0" prefWidth="102.0" styleClass="menu" VBox.vgrow="ALWAYS">
-                                 <children>
-                                    <Label text="insert" />
-                                    <ImageView fitHeight="45.0" fitWidth="50.0">
-                                       <image>
-                                          <Image url="@../icons/icons8-plus-64.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </VBox>
                      </children>
                   </HBox>
                </children>

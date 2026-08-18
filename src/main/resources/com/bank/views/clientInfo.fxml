@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="275.0" prefWidth="212.0" styleClass="infos" stylesheets="@../styles/clients.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bank.controller.ClientInfoController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="53.0" prefWidth="212.0">
+         <children>
+            <Label fx:id="idLabel" text="client id" />
+         </children>
+      </HBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+         <children>
+            <HBox prefHeight="21.0" prefWidth="212.0">
+               <children>
+                  <Label text="first name :">
+                     <HBox.margin>
+                        <Insets left="8.0" right="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="fNameLabel" text="client_f_name">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="21.0" prefWidth="212.0">
+               <children>
+                  <Label text="last name :">
+                     <HBox.margin>
+                        <Insets left="8.0" right="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="lNameLabel" text="client_l_name">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <Label text="contacts">
+               <VBox.margin>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </VBox.margin>
+            </Label>
+            <HBox layoutX="15.0" layoutY="46.0" prefHeight="21.0" prefWidth="212.0">
+               <children>
+                  <Label text="phone :">
+                     <HBox.margin>
+                        <Insets left="8.0" right="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="phoneLabel" text="client_l_name">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="72.0" prefHeight="21.0" prefWidth="212.0">
+               <children>
+                  <Label text="mail :">
+                     <HBox.margin>
+                        <Insets left="8.0" right="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="emailLabel" text="client_l_name">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="balance">
+                           <VBox.margin>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="balanceLabel" text="Label" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="debt">
+                           <VBox.margin>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Label" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>

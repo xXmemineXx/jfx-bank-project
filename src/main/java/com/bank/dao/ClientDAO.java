@@ -40,4 +40,33 @@ public class ClientDAO
         }
         return clientList;
     }
+
+    //get a user by his ID
+    public Client getClient(String id)
+    {
+        String sql = "SELECT * FROM clients WHERE account_id = ?";
+        try (Connection conn = DbConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+            stmt.setString(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                // If a record exists, map the columns to the Model constructor
+                if (rs.next()) {
+                    return new Client(
+                        rs.getString("account_id"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        rs.getInt("balance")
+                    );
+                }
+            }
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

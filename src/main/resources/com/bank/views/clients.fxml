@@ -10,7 +10,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <HBox prefHeight="400.0" prefWidth="600.0" styleClass="Bg" stylesheets="@../styles/clients.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bank.controller.ClientController">
@@ -42,13 +44,17 @@
                   <Button mnemonicParsing="false" text="reset" />
                </children>
             </HBox>
-            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="302.0" prefWidth="213.0" VBox.vgrow="ALWAYS">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="216.0" />
-              </content>
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="302.0" prefWidth="213.0" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
+               <content>
+                  <FlowPane fx:id="cardsGrid" hgap="15.0" prefHeight="200.0" prefWidth="200.0" vgap="15.0">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </FlowPane>
+               </content>
             </ScrollPane>
          </children>
       </VBox>
@@ -62,9 +68,9 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <SplitPane dividerPositions="0.6425992779783394" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" styleClass="status" VBox.vgrow="ALWAYS">
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" styleClass="status" VBox.vgrow="ALWAYS">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="169.0" prefWidth="187.0" styleClass="infos" />
+                  <StackPane fx:id="infoSlot" />
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
                         <VBox alignment="CENTER" layoutX="-27.0" layoutY="-172.0" prefHeight="43.0" prefWidth="237.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

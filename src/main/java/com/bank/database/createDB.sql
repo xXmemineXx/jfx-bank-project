@@ -284,9 +284,9 @@ $$ LANGUAGE plpgsql;
 Create table clients (
   account_id varchar(15) PRIMARY KEY,
   first_name varchar(20) NOT NULL,
-  last_name varchar(20),
-  phone varchar(13),
-  email varchar(60),
+  last_name varchar(20) NOT NULL DEFAULT '',
+  phone varchar(13) DEFAULT '',
+  email varchar(60) DEFAULT '',
   balance INTEGER NOT NULL DEFAULT 0
 
   constraint chk_positive_solde check (balance > 0)
@@ -327,7 +327,7 @@ create table history (
   from_ varchar(10) not null,
   operation_ varchar(10) not null,
   subject_ varchar(15) not null,
-  target_ varchar(15) default null,
+  target_ varchar(15) default '',
   date_ timestamp default current_timestamp
 );
 
