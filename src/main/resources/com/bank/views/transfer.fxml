@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="94.0" prefWidth="600.0" styleClass="bg" stylesheets="@../styles/cards.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="94.0" prefWidth="600.0" styleClass="bg" stylesheets="@../styles/cards.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bank.controller.TransferController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="Bg" HBox.hgrow="ALWAYS">
          <children>
             <HBox alignment="CENTER" prefHeight="23.0" prefWidth="600.0">
                <children>
                   <Label text="transfer from :" />
-                  <Label text="date">
+                  <Label fx:id="transferDateLabel" text="date">
                      <HBox.margin>
                         <Insets left="8.0" right="8.0" />
                      </HBox.margin>
@@ -27,14 +27,14 @@
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label text="imlpies" />
-                        <Label text="sender :" />
-                        <Label text="receiver :" />
+                        <Label fx:id="senderName" text="sender :" />
+                        <Label fx:id="receiverName" text="receiver :" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label text="amount :" />
-                        <Label text="Label" />
+                        <Label fx:id="transferedAmountLabel" text="Label" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="66.0" prefWidth="67.0" styleClass="menu-option">

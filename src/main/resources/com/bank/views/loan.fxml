@@ -7,18 +7,18 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="118.0" prefWidth="600.0" styleClass="Bg" stylesheets="@../styles/cards.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="118.0" prefWidth="600.0" styleClass="Bg" stylesheets="@../styles/cards.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bank.controller.LoanController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="menu" HBox.hgrow="ALWAYS">
          <children>
             <HBox alignment="CENTER" prefHeight="52.0" prefWidth="582.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label text="date">
+                  <Label fx:id="dateLabel" text="date">
                      <HBox.margin>
                         <Insets left="20.0" right="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Label text="loanId">
+                  <Label fx:id="idLabel" text="loanId">
                      <HBox.margin>
                         <Insets left="20.0" right="20.0" />
                      </HBox.margin>
@@ -33,7 +33,7 @@
                            <VBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </VBox.margin></Label>
-                        <Label text="Label">
+                        <Label fx:id="debtorName" text="Label">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin></Label>
@@ -42,9 +42,9 @@
                   <VBox alignment="TOP_CENTER" prefHeight="79.0" prefWidth="219.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label text="amount" />
-                        <Label text="Label" />
+                        <Label fx:id="amountLabel" text="Label" />
                         <Label text="bank income" />
-                        <Label text="Label" />
+                        <Label fx:id="incomeLabel" text="Label" />
                      </children>
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="79.0" prefWidth="129.0">

@@ -12,7 +12,7 @@ public class LoansDAO
     public List<Loans> getAllLoans() 
     {
         List<Loans> LoansList = new ArrayList<>();
-        String sql = "SELECT * FROM loans";
+        String sql = "SELECT * FROM loans JOIN clients ON clients.account_id = loans.debtor_id";
 
         // Open connection and execute query
         try (
@@ -26,7 +26,8 @@ public class LoansDAO
                     rs.getInt("amount"),
                     rs.getString("loan_id"),
                     rs.getString("debtor_id"),
-                    rs.getTimestamp("phone").toLocalDateTime()
+                    rs.getString("first_name"),
+                    rs.getTimestamp("loan_date").toLocalDateTime()
                 );
                 LoansList.add(loan);
             }
