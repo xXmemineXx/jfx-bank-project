@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <HBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="94.0" prefWidth="600.0" styleClass="Bg" stylesheets="@../styles/cards.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bank.controller.TransferController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="menu" HBox.hgrow="ALWAYS">
@@ -38,7 +37,7 @@
                         <Label fx:id="transferedAmountLabel" text="Label" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="66.0" prefWidth="67.0" styleClass="menu-option">
+                  <VBox fx:id="download" alignment="CENTER" onMouseClicked="#handleDownloadPdf" prefHeight="66.0" prefWidth="67.0" styleClass="menu-option">
                      <children>
                         <ImageView fitHeight="43.0" fitWidth="48.0">
                            <image>

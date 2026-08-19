@@ -1,5 +1,7 @@
 package com.bank.controller;
 
+import java.time.format.DateTimeFormatter;
+
 import com.bank.helpers.ActionCard;
 import com.bank.models.Loans; 
 import javafx.fxml.FXML;
@@ -19,7 +21,8 @@ public class LoanController implements ActionCard {
         Loans loan = (Loans) dataRecord; 
         
         debtorName.setText(loan.get_debtor_name());
-        dateLabel.setText(loan.get_date().toString());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        dateLabel.setText(loan.get_date().format(formatter));
         idLabel.setText(loan.get_id());
         incomeLabel.setText(String.valueOf(loan.get_amount() * 0.1));
         amountLabel.setText(String.valueOf(loan.get_amount()));

@@ -1,6 +1,7 @@
 package com.bank.controller;
 
 import com.bank.App;
+import com.bank.models.Admins;
 import com.bank.dao.AdminDAO;
 
 import javafx.fxml.FXML;
@@ -84,15 +85,14 @@ public class SignController {
                 System.out.println("Registration failed. Email might already be taken.");
             }
         } else {
-            // Run the simple, direct credential match verification check
-            boolean isValid = adminDAO.authenticateAdmin(email, password);
-            
-            if (isValid) {
-                System.out.println("Login Success! Opening main application...");
+            Admins authenticatedAdmin = adminDAO.authenticateAdmin(email, password);
+
+            if (authenticatedAdmin != null) {
+                System.out.println("Login Success! Welcome, " + authenticatedAdmin.get_first_name());
+                App.setCurrentLoggedInUser(authenticatedAdmin);
                 App.changeRootScene("/com/bank/views/MainView.fxml", "Bank Dashboard", true);
             } else {
-                System.out.println("Login Failed: Incorrect email or password inputs.");
-                // Optional: Update an error message label visually in your UI
+                System.out.println("Login Failed: Incorrect email or password credentials.");
             }
         }
 }

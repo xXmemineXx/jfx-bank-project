@@ -155,4 +155,24 @@ public class ClientDAO
         }
         return resultsList;
     }
+
+    public int get_client_balance(String clientId) {
+        String sql = "SELECT balance FROM clients WHERE account_id = ?";
+
+        try (Connection conn = DbConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, clientId.trim());
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("balance");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return -1;
+    }
 }

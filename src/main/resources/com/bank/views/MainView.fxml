@@ -36,7 +36,7 @@
                      <children>
                         <HBox alignment="CENTER" layoutX="-39.0" layoutY="-36.0" prefHeight="40.0" prefWidth="121.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Button mnemonicParsing="false" text="log out" textFill="WHITE" />
+                              <Button mnemonicParsing="false" onAction="#logOut" text="log out" textFill="WHITE" />
                               <Circle id="account" fill="WHITE" radius="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.hgrow="NEVER" />
                            </children>
                         </HBox>

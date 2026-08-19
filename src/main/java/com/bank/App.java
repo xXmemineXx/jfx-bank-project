@@ -1,5 +1,7 @@
 package com.bank;
 
+import com.bank.models.Admins;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +12,16 @@ public class App extends Application {
     
     // Maintain a static reference to the main window stage so controllers can switch views
     private static Stage primaryStage;
+
+    private static Admins currentLoggedInUser = null;
+
+    public static Admins getCurrentLoggedInUser() {
+        return currentLoggedInUser;
+    }
+
+    public static void setCurrentLoggedInUser(Admins admin) {
+        currentLoggedInUser = admin;
+    }
 
     @Override
     public void start(Stage stage) throws Exception {

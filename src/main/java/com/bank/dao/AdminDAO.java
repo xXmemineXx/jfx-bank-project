@@ -1,6 +1,8 @@
 package com.bank.dao;
 
 import com.bank.database.DbConnection;
+import com.bank.models.Admins;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,10 +31,8 @@ public class AdminDAO {
         }
     }
 
-    /**
-     * Verifies plain text credentials by checking if a row matches both inputs.
-     */
-    public boolean authenticateAdmin(String email, String password) {
+    //check if exists
+    public Admins authenticateAdmin(String email, String password) {
         String sql = "SELECT * FROM admins WHERE admin_mail = ? AND admin_password = ?";
         
         try (Connection conn = DbConnection.getConnection();
@@ -42,12 +42,20 @@ public class AdminDAO {
             stmt.setString(2, password);
             
             try (ResultSet rs = stmt.executeQuery()) {
-                // If a matching row is found, access is granted instantly
-                return rs.next();
+                if (rs.next()) {
+                    // Build and return the full Admin object directly from the database row fields
+                    return new Admins(
+                        rs.getInt("admin_id"),
+                        rs.getString("admin_first_name"),
+                        rs.getString("admin_last_name"),
+                        rs.getString("admin_mail"),
+                        rs.getString("admin_password")
+                    );
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return null; // Return null if authentication checks fail
     }
 }

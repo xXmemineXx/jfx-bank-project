@@ -1,5 +1,7 @@
 package com.bank.controller;
 
+import com.bank.App;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -38,6 +40,11 @@ public class MainController implements Initializable
     @FXML
     private void showClientsView() {
         loadSubView("/com/bank/views/clients.fxml");
+    }
+
+    @FXML
+    private void logOut() {
+        App.changeRootScene("/com/bank/views/sign.fxml", "sign in", false);
     }
 
     private void loadSubView(String fxmlPath) {
