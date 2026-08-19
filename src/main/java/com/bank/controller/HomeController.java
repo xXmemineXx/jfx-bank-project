@@ -2,7 +2,7 @@ package com.bank.controller;
 
 import com.bank.models.Admins;
 import com.bank.App;
-import com.bank.dao.HistoryDAO;
+import com.bank.dao.*;
 import com.bank.models.History;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,9 +30,14 @@ public class HomeController {
     private TableColumn<History, LocalDateTime> dateColumn;
     @FXML
     private Label adminLabel;
+    @FXML
+    private Label totalClient;
+    @FXML
+    private Label totalIncome;
 
-    // Instantiate your DAO
     private final HistoryDAO historyDAO = new HistoryDAO();
+    private final LoansDAO loansDAO = new LoansDAO();
+    private final ClientDAO clientDAO = new ClientDAO();
 
     @FXML
     public void initialize() {
@@ -42,6 +47,8 @@ public class HomeController {
         subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
         targetColumn.setCellValueFactory(new PropertyValueFactory<>("target"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        totalIncome.setText(String.valueOf(loansDAO.calculerBeneficeBanque()));
+        totalClient.setText(String.valueOf(clientDAO.count_client()));
 
         // Load data from database
         List<History> databaseRecords = historyDAO.gethistory();

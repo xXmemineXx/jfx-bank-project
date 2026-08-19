@@ -152,4 +152,23 @@ public class LoansDAO
         }
         return results;
     }
+
+    //BENEFICE BANQUE
+    public double calculerBeneficeBanque() {
+        String sql = "SELECT SUM(amount) * 0.10 AS benefice FROM loans";
+        double benefice = 0;
+
+        try (Connection conn = DbConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                benefice = rs.getDouble("benefice"); //rs.getDouble("benefice") récupere la valeur de sql
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erreur calcul bénéfice : " + e.getMessage());
+        }
+        return benefice;
+    }
 }

@@ -21,6 +21,11 @@
                </VBox.margin>
             </Label>
             <AnchorPane prefHeight="97.0" prefWidth="204.0" />
+            <ImageView fitHeight="38.0" fitWidth="49.0">
+               <image>
+                  <Image url="@../icons/icons8-client-30.png" />
+               </image>
+            </ImageView>
             <Label fx:id="description" text="additional info">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -30,11 +35,11 @@
       </VBox>
       <HBox alignment="CENTER" prefHeight="115.0" prefWidth="204.0" spacing="5.0" styleClass="menu" VBox.vgrow="ALWAYS">
          <children>
-            <VBox alignment="CENTER" onMouseClicked="#deleteCard" prefHeight="43.0" prefWidth="26.0" styleClass="menu-option" HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER" onMouseClicked="#editCard" prefHeight="43.0" prefWidth="21.0" styleClass="menu-option" HBox.hgrow="ALWAYS">
                <children>
-                  <ImageView fitHeight="33.0" fitWidth="42.0" styleClass="menu-option">
+                  <ImageView fitHeight="35.0" fitWidth="43.0" styleClass="menu-option">
                      <image>
-                        <Image url="@../icons/icons8-trash-64.png" />
+                        <Image url="@../icons/icons8-edit-pencil-64.png" />
                      </image>
                   </ImageView>
                </children>
@@ -44,15 +49,6 @@
                   <ImageView fitHeight="36.0" fitWidth="46.0" styleClass="menu-option">
                      <image>
                         <Image url="@../icons/icons8-info-64.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" onMouseClicked="#editCard" prefHeight="43.0" prefWidth="21.0" styleClass="menu-option" HBox.hgrow="ALWAYS">
-               <children>
-                  <ImageView fitHeight="35.0" fitWidth="43.0" styleClass="menu-option">
-                     <image>
-                        <Image url="@../icons/icons8-edit-pencil-64.png" />
                      </image>
                   </ImageView>
                </children>

@@ -70,6 +70,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
+                  <Label text="montant : " />
                   <Label fx:id="amountLabel" text="montant">
                      <HBox.margin>
                         <Insets left="20.0" right="20.0" />

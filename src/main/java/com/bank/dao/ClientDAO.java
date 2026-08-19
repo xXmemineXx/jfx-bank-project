@@ -174,4 +174,23 @@ public class ClientDAO
         
         return -1;
     }
+
+    public int count_client()
+    {
+        String sql = "SELECT COUNT(clients.account_id) as total FROM clients";
+
+        try (Connection conn = DbConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("total");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return -1;
+    }
 }

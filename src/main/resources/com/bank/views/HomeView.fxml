@@ -133,7 +133,7 @@
                         <Image url="@../icons/icons8-client-30.png" />
                      </image>
                   </ImageView>
-                  <Label text="number" />
+                  <Label fx:id="totalClient" text="number" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -153,7 +153,7 @@
                         <Image url="@../icons/icons8-income-50%20(1).png" />
                      </image>
                   </ImageView>
-                  <Label text="amont" />
+                  <Label fx:id="totalIncome" text="amont" />
                </children>
             </VBox>
          </children>
