@@ -76,21 +76,21 @@
                <children>
                   <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="26.0" prefWidth="536.0" styleClass="specified-search">
                      <children>
-                        <Button mnemonicParsing="false" text="add">
+                        <Button mnemonicParsing="false" onAction="#addNew" text="add">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
                         </Button>
-                        <TextField prefHeight="26.0" prefWidth="275.0" promptText="search on this field ..." styleClass="searchBar" />
-                        <Button mnemonicParsing="false" text="reset" />
+                        <TextField fx:id="searchField" prefHeight="26.0" prefWidth="275.0" promptText="search on this field ..." styleClass="searchBar" />
+                        <Button mnemonicParsing="false" onAction="#handleResetSearch" text="reset" />
                         <MenuButton mnemonicParsing="false" styleClass="button" text="filter">
                           <items>
-                            <MenuItem mnemonicParsing="false" text="all" />
-                            <MenuItem mnemonicParsing="false" text="payed" />
-                              <MenuItem mnemonicParsing="false" text="unpayed" />
+                            <MenuItem mnemonicParsing="false" onAction="#filterAll" text="all" />
+                            <MenuItem mnemonicParsing="false" onAction="#filterPayed" text="payed" />
+                              <MenuItem mnemonicParsing="false" onAction="#filterUnpayed" text="unpayed" />
                           </items>
                         </MenuButton>
-                        <Button mnemonicParsing="false" text="search">
+                        <Button mnemonicParsing="false" onAction="#handleResetSearch" text="search">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>

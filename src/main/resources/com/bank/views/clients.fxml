@@ -78,7 +78,7 @@
                               <Label text="shortcuts" />
                               <HBox alignment="CENTER" prefHeight="43.0" prefWidth="237.0" spacing="10.0" styleClass="menu" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="Shortcut" HBox.hgrow="ALWAYS">
+                                    <VBox alignment="CENTER" onMouseClicked="#handleShortcutLoan" prefHeight="200.0" prefWidth="100.0" styleClass="Shortcut" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label text="loan" />
                                           <ImageView fitHeight="35.0" fitWidth="39.0">
@@ -91,7 +91,7 @@
                                           </ImageView>
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="Shortcut" HBox.hgrow="ALWAYS">
+                                    <VBox alignment="CENTER" onMouseClicked="#handleShortcutReturn" prefHeight="200.0" prefWidth="100.0" styleClass="Shortcut" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label text="return" />
                                           <ImageView VBox.vgrow="ALWAYS">

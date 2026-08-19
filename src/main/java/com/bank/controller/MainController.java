@@ -14,12 +14,20 @@ import javafx.scene.layout.StackPane;
 public class MainController implements Initializable
 {
 
+    /** Static reference so child views (e.g. HomeView) can request navigation. */
+    private static MainController instance;
+
     @FXML
     private StackPane contentArea;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        instance = this;
         showHomeView();
+    }
+
+    public static MainController getInstance() {
+        return instance;
     }
 
     @FXML
@@ -28,17 +36,17 @@ public class MainController implements Initializable
     }
 
     @FXML
-    private void showHomeView() {
+    public void showHomeView() {
         loadSubView("/com/bank/views/HomeView.fxml");
     }
 
     @FXML
-    private void showActionsView() {
+    public void showActionsView() {
         loadSubView("/com/bank/views/actions.fxml");
     }
 
     @FXML
-    private void showClientsView() {
+    public void showClientsView() {
         loadSubView("/com/bank/views/clients.fxml");
     }
 

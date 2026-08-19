@@ -112,6 +112,69 @@ public class ClientController {
         openFormModal(null); 
     }
 
+    @FXML
+    private void handleShortcutLoan() {
+        // Vérifie si un client est sélectionné (l'ID stocké dans ta variable globale de classe)
+        if (selectedClientId == null) {
+            System.out.println("Aucun client sélectionné pour le raccourci !");
+            return;
+        }
+
+        // Récupérer l'objet client complet
+        Client activeClient = clientDAO.getClient(selectedClientId);
+        if (activeClient == null) return;
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/bank/views/loanForm.fxml"));
+            Parent root = loader.load();
+
+            LoanFormController formController = loader.getController();
+            // Mode raccourci : transmet le client et verrouille le champ
+            formController.setShortcutMode(activeClient, () -> {
+                // Callback de rafraîchissement (recharger tes listes si nécessaire)
+                loadFilteredClientCards(searchField.getText());
+            });
+
+            Stage stage = new Stage();
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.setTitle("Nouveau Prêt");
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleShortcutReturn() {
+        if (selectedClientId == null) return;
+
+        Client activeClient = clientDAO.getClient(selectedClientId);
+        if (activeClient == null) return;
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/bank/views/returnForm.fxml"));
+            Parent root = loader.load();
+
+            ReturnFormController formController = loader.getController();
+            // Configure ton contrôleur Return de la même manière pour bloquer le client
+            formController.setShortcutMode(activeClient, () -> {
+                loadFilteredClientCards(searchField.getText());
+            });
+
+            Stage stage = new Stage();
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.setTitle("Retour de Prêt");
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void showDetailedProfile(Client client) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/bank/views/clientInfo.fxml"));

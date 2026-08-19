@@ -24,11 +24,17 @@ public class Returns
 		this.loan_id = loanId;
 		this.return_date = r_date;
 		this.debtorName = debtor;
+		this.fully_returned = full;
 	}
 
 	//setters
 	public void set_amount(int money) { this.returned_amount = money; }
 	public void set_id(String id) { this.return_id = id; }
+	public void set_unpayed(int remaining) { this.unpayed = remaining; }
+	public void set_fully_returned(boolean full) {
+		this.fully_returned = full;
+		this.status = full ? "fully returned" : "still in debt";
+	}
 
 	//getters
 	public Boolean is_repayed() { return this.fully_returned; }

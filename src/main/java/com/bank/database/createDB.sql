@@ -16,32 +16,32 @@ CREATE OR REPLACE FUNCTION calculate_loan()
 RETURNS TRIGGER AS $$
 DECLARE
     original_loan_amount INTEGER;
+    previous_returned_amount INTEGER;
+    total_returned_amount INTEGER;
 BEGIN
-    -- 1. Find the total amount borrowed from the loans table
-    SELECT amount INTO original_loan_amount 
-    FROM loans 
+    SELECT amount INTO original_loan_amount
+    FROM loans
     WHERE loan_id = NEW.loan_id;
 
-    -- Safety check: If the loan ID does not exist, throw an error
     IF original_loan_amount IS NULL THEN
         RAISE EXCEPTION 'Invalid Loan ID: % does not exist in the loans ledger.', NEW.loan_id;
     END IF;
 
-    -- 2. Prevent overpaying the loan amount
-    IF NEW.returned_amount > original_loan_amount THEN
-        RAISE EXCEPTION 'Payment rejected: Repayment amount (%) exceeds the total loan balance (%).', 
-            NEW.returned_amount, original_loan_amount;
+    SELECT COALESCE(SUM(returned_amount), 0)
+    INTO previous_returned_amount
+    FROM returned
+    WHERE loan_id = NEW.loan_id
+      AND (TG_OP = 'INSERT' OR return_id <> NEW.return_id);
+
+    total_returned_amount := previous_returned_amount + NEW.returned_amount;
+
+    IF total_returned_amount > original_loan_amount THEN
+        RAISE EXCEPTION 'Payment rejected: total repayments (%) exceed the loan amount (%).',
+            total_returned_amount, original_loan_amount;
     END IF;
 
-    -- 3. Calculate remaining unpaid debt
-    NEW.unpayed := original_loan_amount - NEW.returned_amount;
-
-    -- 4. Automatically switch fully_returned status
-    IF NEW.unpayed = 0 THEN
-        NEW.fully_returned := TRUE;
-    ELSE
-        NEW.fully_returned := FALSE;
-    END IF;
+    NEW.unpayed := original_loan_amount - total_returned_amount;
+    NEW.fully_returned := (NEW.unpayed = 0);
 
     RETURN NEW;
 END;
@@ -53,28 +53,26 @@ DECLARE
     last_loan_id VARCHAR(10);
     is_fully_returned BOOLEAN;
 BEGIN
-    -- 1. Find the debtor's most recent loan ID (if any exists)
     SELECT loan_id INTO last_loan_id
     FROM loans
     WHERE debtor_id = NEW.debtor_id
     ORDER BY loan_date DESC
     LIMIT 1;
 
-    -- 2. If they have a prior loan, check if it has been fully paid off
     IF last_loan_id IS NOT NULL THEN
-        -- Look up the status in the 'returned' table
-        SELECT fully_returned INTO is_fully_returned
-        FROM returned
-        WHERE loan_id = last_loan_id;
+        SELECT EXISTS (
+            SELECT 1
+            FROM returned
+            WHERE loan_id = last_loan_id
+              AND fully_returned = TRUE
+        ) INTO is_fully_returned;
 
-        -- OR if the loan exists in 'loans' but no payment attempts exist in 'returned' yet.
-        IF is_fully_returned IS NULL OR is_fully_returned = FALSE THEN
-            RAISE EXCEPTION 'Loan rejected: Debtor % still has an active, unreturned loan (%)', 
+        IF NOT is_fully_returned THEN
+            RAISE EXCEPTION 'Loan rejected: Debtor % still has an active, unreturned loan (%)',
                 NEW.debtor_id, last_loan_id;
         END IF;
     END IF;
 
-    -- If everything is fine, allow the insert
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;

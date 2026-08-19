@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="94.0" prefWidth="600.0" styleClass="Bg" stylesheets="@../styles/cards.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bank.controller.TransferController">
+<HBox fx:id="cardRoot" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="94.0" prefWidth="600.0" styleClass="Bg" stylesheets="@../styles/cards.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bank.controller.TransferController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="menu" HBox.hgrow="ALWAYS">
          <children>
@@ -39,7 +39,7 @@
                   </VBox>
                   <VBox fx:id="download" alignment="CENTER" onMouseClicked="#handleDownloadPdf" prefHeight="66.0" prefWidth="67.0" styleClass="menu-option">
                      <children>
-                        <ImageView fitHeight="43.0" fitWidth="48.0">
+                        <ImageView fitHeight="49.0" fitWidth="50.0">
                            <image>
                               <Image url="@../icons/icons8-pdf-24.png" />
                            </image>
@@ -51,7 +51,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                      <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="menu-option">
+                        <VBox alignment="CENTER" onMouseClicked="#handleDelete" prefHeight="200.0" prefWidth="100.0" styleClass="menu-option">
                            <children>
                               <ImageView fitHeight="23.0" fitWidth="33.0">
                                  <image>
@@ -60,7 +60,7 @@
                               </ImageView>
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="menu-option">
+                        <VBox alignment="CENTER" onMouseClicked="#handleEdit" prefHeight="200.0" prefWidth="100.0" styleClass="menu-option">
                            <children>
                               <ImageView fitHeight="25.0" fitWidth="29.0">
                                  <image>

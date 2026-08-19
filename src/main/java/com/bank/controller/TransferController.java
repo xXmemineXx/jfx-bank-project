@@ -1,16 +1,22 @@
 package com.bank.controller;
 
+import com.bank.dao.TransferDAO;
 import com.bank.helpers.ActionCard;
 import com.bank.models.Transfer; 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -22,14 +28,17 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 public class TransferController implements ActionCard {
+    @FXML private HBox cardRoot;
     @FXML private Label senderName;
     @FXML private Label receiverName;
     @FXML private Label transferDateLabel;
     @FXML private Label transferedAmountLabel;
     @FXML private VBox download;
 
+    private final TransferDAO transferDAO = new TransferDAO();
     private Transfer currentTransfer;
 
     public void setTransferData(Transfer transfer) {
@@ -97,19 +106,58 @@ public class TransferController implements ActionCard {
 
     @Override
     public void populateCardData(Object dataRecord) {
-        // Cast the generic object to your specific model type
         Transfer transfer = (Transfer) dataRecord; 
         
-        // CRUCIAL ADDITION: Save the reference so handleDownloadPdf knows which record to parse!
         setTransferData(transfer); 
         
         senderName.setText("sender : " + transfer.get_sender_name());
         receiverName.setText("receiver : " + transfer.get_receiver_name());
         
-        // Clean formatting for your display layout date string
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         transferDateLabel.setText(transfer.get_date().format(formatter));
         
         transferedAmountLabel.setText(String.format("%,d Ar", transfer.get_amount()));
+    }
+
+    // trash icon
+    @FXML
+    private void handleDelete() {
+        if (currentTransfer == null) return;
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
+            "Delete this transfer?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> answer = confirm.showAndWait();
+
+        if (answer.isPresent() && answer.get() == ButtonType.YES) {
+            boolean success = transferDAO.supprimer(currentTransfer.get_id());
+            if (success && cardRoot.getParent() instanceof Pane parent) {
+                parent.getChildren().remove(cardRoot);
+            } else if (!success) {
+                new Alert(Alert.AlertType.ERROR, "Could not delete this transfer.").showAndWait();
+            }
+        }
+    }
+
+    // pencil icon
+    @FXML
+    private void handleEdit() {
+        if (currentTransfer == null) return;
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/bank/views/transferForm.fxml"));
+            Parent root = loader.load();
+
+            TransferFormController formController = loader.getController();
+            formController.setEditMode(currentTransfer, () -> populateCardData(currentTransfer));
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.setTitle("Edit Transfer");
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -27,8 +27,8 @@ public class ClientDAO
             while (rs.next()) {
                 Client client = new Client(
                     rs.getString("account_id"),
-                    rs.getString("first_name"),
                     rs.getString("last_name"),
+                    rs.getString("first_name"),
                     rs.getString("email"),
                     rs.getString("phone"),
                     rs.getInt("balance")
@@ -50,12 +50,11 @@ public class ClientDAO
         {
             stmt.setString(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
-                // If a record exists, map the columns to the Model constructor
                 if (rs.next()) {
                     return new Client(
                         rs.getString("account_id"),
-                        rs.getString("first_name"),
                         rs.getString("last_name"),
+                        rs.getString("first_name"),
                         rs.getString("email"),
                         rs.getString("phone"),
                         rs.getInt("balance")

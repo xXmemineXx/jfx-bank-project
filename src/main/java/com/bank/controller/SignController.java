@@ -44,13 +44,11 @@ public class SignController {
     }
 
     private void setSignUpModeActive(boolean active) {
-        // 1. Hide/Show the registration fields layout block
         registerContainer.setVisible(active);
         
-        // CRUCIAL: Tell JavaFX to collapse the layout space when hidden
         registerContainer.setManaged(active);
 
-        // 2. Dynamically transform the textual context strings
+        // Dynamically transform the textual context strings
         if (active) {
             formTitle.setText("Create Administrator Account");
             action.setText("Register Account");

@@ -56,4 +56,22 @@ public class HomeController {
             adminLabel.setText(user.get_first_name() + " " + user.get_last_name());
         }
     }
+
+    /** First shortcut → Clients view */
+    @FXML
+    private void goToClients() {
+        MainController main = MainController.getInstance();
+        if (main != null) {
+            main.showClientsView();
+        }
+    }
+
+    /** Second shortcut → Actions / operations view */
+    @FXML
+    private void goToActions() {
+        MainController main = MainController.getInstance();
+        if (main != null) {
+            main.showActionsView();
+        }
+    }
 }
