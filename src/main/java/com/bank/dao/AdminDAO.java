@@ -10,9 +10,7 @@ import java.sql.SQLException;
 
 public class AdminDAO {
 
-    /**
-     * Inserts a plain text administrator row straight into PostgreSQL.
-     */
+    
     public boolean registerAdmin(String firstName, String lastName, String mail, String password) {
         String sql = "INSERT INTO admins (admin_first_name, admin_last_name, admin_mail, admin_password) VALUES (?, ?, ?, ?)";
         

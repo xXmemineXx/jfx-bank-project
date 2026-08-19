@@ -8,10 +8,7 @@ import java.util.List;
 
 public class ReturnsDAO
 {
-    /**
-     * Amount still owed on a loan after every recorded repayment is summed.
-     * Always subtracts in Java so JDBC parameter binding cannot hide previous payments.
-     */
+    
     public int getOutstandingAmount(String loanId, int loanAmount) {
         String sql = "SELECT COALESCE(SUM(returned_amount), 0) FROM returned WHERE loan_id = ?";
         try (Connection conn = DbConnection.getConnection();

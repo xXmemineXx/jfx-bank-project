@@ -1,9 +1,15 @@
 package com.bank.controller;
 
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
+import com.bank.dao.ClientDAO;
 import com.bank.dao.LoansDAO;
 import com.bank.helpers.ActionCard;
+import com.bank.helpers.MailService;
+import com.bank.models.Client;
 import com.bank.models.Loans;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +23,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Optional;
 
 public class LoanController implements ActionCard {
     @FXML private HBox cardRoot;
@@ -28,11 +33,14 @@ public class LoanController implements ActionCard {
     @FXML private Label incomeLabel;
 
     private final LoansDAO loanDAO = new LoansDAO();
+    private final ClientDAO clientDAO = new ClientDAO();
     private Loans currentLoan;
+
+    // Lazily created so missing mail.properties does not break the whole card grid
+    private MailService mailService;
 
     @Override
     public void populateCardData(Object dataRecord) {
-        // Cast the generic object to your specific model type
         Loans loan = (Loans) dataRecord;
         this.currentLoan = loan;
 
@@ -44,7 +52,67 @@ public class LoanController implements ActionCard {
         amountLabel.setText(String.valueOf(loan.get_amount()));
     }
 
-    // trash icon
+    /** Mailbox icon — send a templated reminder to the debtor. */
+    @FXML
+    private void handleSendMail() {
+        if (currentLoan == null) return;
+
+        Client client = clientDAO.getClient(currentLoan.get_debtor());
+        if (client == null) {
+            showError("Client not found for this loan.");
+            return;
+        }
+
+        String email = client.get_mail();
+        if (email == null || email.isBlank()) {
+            showError("This client has no email address on file.");
+            return;
+        }
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
+            "Send a loan reminder to " + client.get_first_name() + " <" + email + ">?",
+            ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> answer = confirm.showAndWait();
+        if (answer.isEmpty() || answer.get() != ButtonType.YES) return;
+
+        // Build template variables
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        Map<String, String> vars = new HashMap<>();
+        vars.put("client_name", client.get_first_name() + " " + client.get_last_name());
+        vars.put("loan_id", currentLoan.get_id());
+        vars.put("amount", String.valueOf(currentLoan.get_amount()));
+        vars.put("loan_date", currentLoan.get_date().format(formatter));
+        vars.put("account_id", client.get_id());
+        vars.put("bank_name", "Your Bank");
+
+        String subject = MailService.applyTemplate(MailService.LOAN_REMINDER_SUBJECT, vars);
+        String body = MailService.applyTemplate(MailService.LOAN_REMINDER_BODY, vars);
+
+        try {
+            if (mailService == null) {
+                mailService = new MailService();
+            }
+        } catch (Exception e) {
+            showError("Mail is not configured. Check src/main/resources/mail.properties\n" + e.getMessage());
+            return;
+        }
+
+        // Disable further clicks while sending (optional visual feedback)
+        cardRoot.setDisable(true);
+
+        mailService.sendAsync(email, subject, body,
+            () -> {
+                cardRoot.setDisable(false);
+                new Alert(Alert.AlertType.INFORMATION,
+                    "Reminder sent to " + email).showAndWait();
+            },
+            err -> {
+                cardRoot.setDisable(false);
+                showError("Failed to send email:\n" + err);
+            }
+        );
+    }
+
     @FXML
     private void handleDelete() {
         if (currentLoan == null) return;
@@ -63,7 +131,6 @@ public class LoanController implements ActionCard {
         }
     }
 
-    // pencil icon
     @FXML
     private void handleEdit() {
         if (currentLoan == null) return;
@@ -74,8 +141,6 @@ public class LoanController implements ActionCard {
 
             LoanFormController formController = loader.getController();
             formController.setEditMode(currentLoan, () -> {
-                // Refreshed loan comes back through the periodic auto-refresh loop;
-                // re-populate this card immediately too for instant feedback.
                 Loans updated = loanDAO.getActiveLoanForClient(currentLoan.get_debtor());
                 if (updated != null) populateCardData(updated);
             });
@@ -89,5 +154,13 @@ public class LoanController implements ActionCard {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("ERROR");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

@@ -53,7 +53,7 @@
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="79.0" prefWidth="129.0">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="menu-option">
+                        <VBox alignment="CENTER" onMouseClicked="#handleSendMail" prefHeight="200.0" prefWidth="100.0" styleClass="menu-option">
                            <children>
                               <ImageView fitHeight="37.0" fitWidth="34.0">
                                  <image>

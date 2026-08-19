@@ -74,9 +74,6 @@ public class TransferDAO
 
     // DELETE
     public boolean supprimer(int transfer_id) {
-        // BUG FIX: transfer_id is an INTEGER column (serial). Binding it via
-        // setString() sends it to Postgres as varchar and the comparison
-        // "integer = character varying" throws at runtime on every delete.
         String sql = "DELETE FROM transfer WHERE transfer_id = ?";
         try (Connection conn = DbConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
